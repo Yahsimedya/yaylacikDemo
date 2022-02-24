@@ -496,7 +496,7 @@ class ExtraController extends Controller
 
         $video_gallary = Cache()->remember("video_gallary", Carbon::now()->addYear(), function () {
             if (Cache::has('video_gallary')) return Cache::has('video_gallary');
-            return Post::where('posts_video', '!=', NULL)->orderByDesc('created_at')->get();
+            return Post::orderByDesc('created_at')->get();
         });
 //        $home =
 ////            Cache::remember("home", Carbon::now()->addYear(), function () {
@@ -512,7 +512,7 @@ class ExtraController extends Controller
 
         $home = Cache()->remember("home", Carbon::now()->addYear(), function () {
             if (Cache::has('home')) return Cache::has('home');
-            return Post::where('status', 1)->whereManset(1)
+            return Post::where('status', 1)
                 ->latest('created_at')->limit(25)
                 ->get();
         });
@@ -532,7 +532,7 @@ class ExtraController extends Controller
         $surmanset = Cache()->remember("home-surmanset", Carbon::now()->addYear(), function () {
 //            if (Cache::has('surmanset')) return Cache::has('surmanset');
             return Post::where('status', 1)
-                ->where('surmanset', 1)
+
                 ->with('category')
                 ->limit(4)
                 ->latest('created_at')
@@ -542,7 +542,7 @@ class ExtraController extends Controller
         $sagmanset = Cache()->remember("sagmanset", Carbon::now()->addYear(), function () {
             if (Cache::has('sagmanset')) return Cache::has('sagmanset'); //here am simply trying Laravel Collection method -find
 
-            return Post::whereIn('category_id', [1, 2, 3])->where('status', 1)->latest('created_at')->limit(15)->get();
+            return Post::where('status', 1)->latest('created_at')->limit(15)->get();
         });
 
         $sehir = Cache::remember("sehir", Carbon::now()->addYear(), function () {
@@ -572,22 +572,22 @@ class ExtraController extends Controller
 
         $youtube = Cache::remember("youtube", Carbon::now()->addYear(), function () {
             if (Cache::has('youtube')) return Cache::has('youtube');
-            return Post::where('category_id', 12)->where('status', 1)->limit(6)->latest('created_at')->get();
+            return Post::where('status', 1)->limit(6)->latest('created_at')->get();
 
         });
 
         $videogaleri = Cache::remember("videogaleri", Carbon::now()->addYear(), function () {
             if (Cache::has('videogaleri')) return Cache::has('videogaleri');
-            return Post::where('status', 1)->whereNotNull('posts_video')->limit(4)->latest('created_at')->get();
+            return Post::where('status', 1)->limit(4)->latest('created_at')->get();
 
         });
         $videogaleriSlider = Cache::remember("videogaleriSlider", Carbon::now()->addYear(), function () {
             if (Cache::has('videogaleriSlider')) return Cache::has('videogaleriSlider');
-            return Post::where('status', 1)->where('manset', 1)->whereNotNull('posts_video')->limit(12)->latest('created_at')->get();
+            return Post::where('status', 1)->limit(12)->latest('created_at')->get();
         });
         $gundem = Cache::remember("gundem", Carbon::now()->addYear(), function () {
             if (Cache::has('gundem')) return Cache::has('gundem');
-            return Post::where('category_id', '=', 2)->where('featured', '=', 1)->where('status', 1)->limit(10)->latest('created_at')->get();
+            return Post::where('category_id', '=', 2)->where('status', 1)->limit(10)->latest('created_at')->get();
         });
         $gundemcard = Cache::remember("gundemcard", Carbon::now()->addYear(), function () {
             if (Cache::has('gundemcard')) return Cache::has('gundem');
@@ -639,7 +639,7 @@ class ExtraController extends Controller
 
         $Ilcehaberleri = Cache::remember("education", Carbon::now()->addYear(), function () {
 
-            return Post::limit(8)->where('subdistrict_id', $ilce->id)->get();
+            return Post::limit(8)->get();
         });
 
 //        $authors = Cache::remember("authors", Carbon::now()->addYear(), function () {

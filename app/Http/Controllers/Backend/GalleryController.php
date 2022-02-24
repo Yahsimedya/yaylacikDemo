@@ -71,7 +71,7 @@ class GalleryController extends Controller
   //          'alert-type' => 'success'
   //      );
   //  }
-        return Redirect()->route('photo.galery')->with($notification);
+        return Redirect()->route('photo.galery');
   //  } else {
   //      DB::table('photos')->insert($data);
   //      return Redirect()->route('photo.galery');
