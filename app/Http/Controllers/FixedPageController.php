@@ -45,7 +45,7 @@ class FixedPageController extends Controller
         $data['content'] = $request->content;
         $data['keyword'] = $request->keyword;
         $data['description'] = $request->description;
-        DB::table('fixedpage')->insert($data);
+    //    DB::table('fixedpage')->insert($data);
         $notification = array(
             'message' => 'Sayfa Başarıyla Eklendi',
             'alert-type' => 'success'
@@ -76,7 +76,7 @@ class FixedPageController extends Controller
         $data['content'] =$request->content;
         $data['keyword'] =$request->keyword;
         $data['description'] =$request->description;
-        DB::table('fixedpage')->where('id',$id)->update($data);
+      //  DB::table('fixedpage')->where('id',$id)->update($data);
 
 
         $notification = array(
@@ -92,7 +92,7 @@ class FixedPageController extends Controller
         $data = DB::table('fixedpage')->where('id', $id)->first();
         $update['status'] = $request->aktif;
 
-        DB::table('fixedpage')->where('id', $id)->update($update);
+      //  DB::table('fixedpage')->where('id', $id)->update($update);
         if ($request->aktif == 1) {
             $notification = array(
                 'message' => 'Sayfa Aktif Yapıldı',
@@ -127,7 +127,7 @@ class FixedPageController extends Controller
      */
     public function delete($id)
     {
-        DB::table('fixedpage')->delete($id, '=', 'id');
+   //     DB::table('fixedpage')->delete($id, '=', 'id');
 
 
         $notification = array(

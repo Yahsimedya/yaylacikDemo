@@ -25,7 +25,7 @@ class CornerPostsController extends Controller
     }
     public function CreateAuthorsPosts(Request $request) {
 
-        AuthorsPost::create($request->all());
+     //   AuthorsPost::create($request->all());
 
         return redirect('/authors/posts');
 
@@ -44,7 +44,7 @@ class CornerPostsController extends Controller
     }
     public function UpdateAuthorsPosts(Request $request,AuthorsPost $cornerposts) {
 
-        $cornerposts->Update($request->all());
+     //   $cornerposts->Update($request->all());
             $notification = array(
                 'message' => 'Yazı Güncellendi',
                 'alert-type' => 'success'
@@ -56,10 +56,10 @@ class CornerPostsController extends Controller
     {
         // $data = DB::table('subdistricts')->where('id', $id)->first();
         // $update= Array();
-        $update['status'] = $request->aktif;
+   //     $update['status'] = $request->aktif;
 
 //        DB::table('posts')->where('id', $id)->update($update);
-        AuthorsPost::find($id)->update($update);
+   //     AuthorsPost::find($id)->update($update);
 
         if ($request->aktif == 1) {
             $notification = array(
@@ -78,7 +78,7 @@ class CornerPostsController extends Controller
         // return view('backend.subdistrict.index');
     }
     public function DeleteAuthorsPosts(AuthorsPost $cornerposts) {
-        $cornerposts->delete();
+    //    $cornerposts->delete();
 
         $notification = array(
             'message' => 'Köşe Yaızısı Başarıyla Silindi',

@@ -217,53 +217,53 @@ class PostController extends Controller
 //            'slug_en'=>$request->slug_en,
 //            'publish_date'=>$request->publish_date,
 //        ]);
-        $post = Post::create($request->all());
+    //    $post = Post::create($request->all());
 //        $post = Carbon::parse($request->publish_date);
 //dd($post->publish_date);
 //        dd($post->Carbon::createFromFormat('Y-m-d\TH:i:s.0000000 P', $publish_date));
- if($request->publish_date=Carbon::now()->format('Y-m-d')) {
-
-            $yil = Carbon::now()->year;
-            $ay = Carbon::now()->month;
-            if (file_exists('storage/postimg/' . $yil) == false) {
-                mkdir('storage/postimg/' . $yil, 0777, true);
-            }
-            if (file_exists('storage/postimg/' . $yil . '/' . $ay) == false) {
-                mkdir('storage/postimg/' . $yil . '/' . $ay, 0777, true);
-            }
-
-            $image = $request->image;
-            if ($image) {
-                $image_one = uniqid() . '.' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-
-                $new_image_name = 'storage/postimg/' . $yil . '/' . $ay . '/' . $image_one;
-
-                Image::make($image)->resize(800, 450)->fit(800, 450)->save($new_image_name,68,'jpg');
-
-                $post->image = $new_image_name;
-            }
-
-            $tagNames = explode(',', $request->get('tag')[0]);
-            $tagIds = [];
-            foreach ($tagNames as $tagName) {
-//                    $post->tag()->create(['name'=>$tagName]);
-                //Or to take care of avoiding duplication of Tag
-                //you could substitute the above line as
-                $tag = Tag::firstOrCreate(['name' => $tagName]);
-                if ($tag) {
-                    $tagIds[] = $tag->id;
-                }
-
-            }
-            $post->tag()->sync($tagIds);
-
-            $post->save();
+ //if($request->publish_date=Carbon::now()->format('Y-m-d')) {
+ //
+ //           $yil = Carbon::now()->year;
+ //           $ay = Carbon::now()->month;
+ //           if (file_exists('storage/postimg/' . $yil) == false) {
+ //               mkdir('storage/postimg/' . $yil, 0777, true);
+ //           }
+ //           if (file_exists('storage/postimg/' . $yil . '/' . $ay) == false) {
+ //               mkdir('storage/postimg/' . $yil . '/' . $ay, 0777, true);
+ //           }
+ //
+ //           $image = $request->image;
+ //           if ($image) {
+ //               $image_one = uniqid() . '.' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+ //
+ //               $new_image_name = 'storage/postimg/' . $yil . '/' . $ay . '/' . $image_one;
+ //
+ //               Image::make($image)->resize(800, 450)->fit(800, 450)->save($new_image_name,68,'jpg');
+ //
+ //               $post->image = $new_image_name;
+ //           }
+ //
+ //           $tagNames = explode(',', $request->get('tag')[0]);
+ //           $tagIds = [];
+ //           foreach ($tagNames as $tagName) {
+////                    $post->tag()->create(['name'=>$tagName]);
+ //               //Or to take care of avoiding duplication of Tag
+ //               //you could substitute the above line as
+ //               $tag = Tag::firstOrCreate(['name' => $tagName]);
+ //               if ($tag) {
+ //                   $tagIds[] = $tag->id;
+ //               }
+ //
+ //           }
+ //           $post->tag()->sync($tagIds);
+ //
+ //           $post->save();
 
             return Redirect()->route('all.post')->with([
                 'message' => 'Haber Başarıyla Eklendi',
                 'alert-type' => 'success'
             ]);
-        }
+      // }
 
 
     }
@@ -307,54 +307,54 @@ class PostController extends Controller
         );
 
 
-        $post->fill($request->all()); // use fill function after validation!
-
-        $yil = Carbon::now()->year;
-        $ay = Carbon::now()->month;
-        if (file_exists('storage/postimg/' . $yil) === false) {
-            mkdir('storage/postimg/' . $yil, 0777, true);
-        }
-        if (file_exists('storage/postimg/' . $yil . '/' . $ay) === false) {
-            mkdir('storage/postimg/' . $yil . '/' . $ay, 0777, true);
-        }
-
-        $image = $request->image;
-        if ($image) { // if image is updating
-            $image_one = uniqid() . '.' . $image->getClientOriginalName();
-
-            $new_image_name = 'storage/postimg/' . $yil . '/' . $ay . '/' . $image_one;
-            Image::make($image)->resize(800, 450)->fit(800, 450)->save($new_image_name,68,'jpg');
-            $post->image = $new_image_name; // set new image to the object, replace tmp image with new right path
-
-            if (file_exists($request->old_image)) {
-                unlink($request->old_image);
-            }
-        }
-
-        $tagNames = explode(',', $request->get('tag')[0]); //
-        $tagIds = [];
-        foreach ($tagNames as $tagName) {
-//                    $post->tag()->create(['name'=>$tagName]);
-            //Or to take care of avoiding duplication of Tag
-            //you could substitute the above line as
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            if ($tag) {
-                $tagIds[] = $tag->id;
-            }
-
-        }
-        $post['manset'] = $request->manset == null ? 0 : 1;
-        $post['story'] = $request->story == null ? 0 : 1;
-        $post['headline'] = $request->headline == null ? 0 : 1;
-        $post['featured'] = $request->featured == null ? 0 : 1;
-        $post['surmanset'] = $request->surmanset == null ? 0 : 1;
-        $post['attentiontag'] = $request->attentiontag == null ? 0 : 1;
-        $post['flahtag'] = $request->flahtag == null ? 0 : 1;
-        $post['headlinetag'] = $request->headlinetag == null ? 0 : 1;
-
-        $post->tag()->sync($tagIds);
-
-        $post->save(); // then save the new data to db, save data and new image as well
+  //      $post->fill($request->all()); // use fill function after validation!
+  //
+  //      $yil = Carbon::now()->year;
+  //      $ay = Carbon::now()->month;
+  //      if (file_exists('storage/postimg/' . $yil) === false) {
+  //          mkdir('storage/postimg/' . $yil, 0777, true);
+  //      }
+  //      if (file_exists('storage/postimg/' . $yil . '/' . $ay) === false) {
+  //          mkdir('storage/postimg/' . $yil . '/' . $ay, 0777, true);
+  //      }
+  //
+  //      $image = $request->image;
+  //      if ($image) { // if image is updating
+  //          $image_one = uniqid() . '.' . $image->getClientOriginalName();
+  //
+  //          $new_image_name = 'storage/postimg/' . $yil . '/' . $ay . '/' . $image_one;
+  //          Image::make($image)->resize(800, 450)->fit(800, 450)->save($new_image_name,68,'jpg');
+  //          $post->image = $new_image_name; // set new image to the object, replace tmp image with new right path
+  //
+  //          if (file_exists($request->old_image)) {
+  //              unlink($request->old_image);
+  //          }
+  //      }
+  //
+  //      $tagNames = explode(',', $request->get('tag')[0]); //
+  //      $tagIds = [];
+  //      foreach ($tagNames as $tagName) {
+////                    $post->tag()->create(['name'=>$tagName]);
+  //          //Or to take care of avoiding duplication of Tag
+  //          //you could substitute the above line as
+  //          $tag = Tag::firstOrCreate(['name' => $tagName]);
+  //          if ($tag) {
+  //              $tagIds[] = $tag->id;
+  //          }
+  //
+  //      }
+  //      $post['manset'] = $request->manset == null ? 0 : 1;
+  //      $post['story'] = $request->story == null ? 0 : 1;
+  //      $post['headline'] = $request->headline == null ? 0 : 1;
+  //      $post['featured'] = $request->featured == null ? 0 : 1;
+  //      $post['surmanset'] = $request->surmanset == null ? 0 : 1;
+  //      $post['attentiontag'] = $request->attentiontag == null ? 0 : 1;
+  //      $post['flahtag'] = $request->flahtag == null ? 0 : 1;
+  //      $post['headlinetag'] = $request->headlinetag == null ? 0 : 1;
+  //
+  //      $post->tag()->sync($tagIds);
+  //
+  //      $post->save(); // then save the new data to db, save data and new image as well
 
         return Redirect()->route('all.post')->with([
             'message' => 'Haber Başarıyla Güncellendi',
@@ -365,9 +365,9 @@ class PostController extends Controller
     public function ActivePost(Request $request, $id)
     {
 
-        $update['status'] = $request->aktif;
+   //     $update['status'] = $request->aktif;
 
-        DB::table('posts')->where('id', $id)->update($update);
+     //   DB::table('posts')->where('id', $id)->update($update);
 
 
         if ($request->aktif == 1) {
@@ -388,11 +388,11 @@ class PostController extends Controller
     public function DeletePost(Post $post)
     {
 
-        if (file_exists($post->image)) {
-            unlink($post->image);
-        }
-//DB::table('posts')->where('id',$id)->delete();
-        $post->delete();
+ //       if (file_exists($post->image)) {
+ //           unlink($post->image);
+ //       }
+////DB::table('posts')->where('id',$id)->delete();
+ //       $post->delete();
         $notification = array(
             'message' => 'Haber Başarıyla Silindi',
             'alert-type' => 'error'
@@ -419,26 +419,26 @@ class PostController extends Controller
 
     public function OrderphotoUpload(Request $request, $id)
     {
-        $yil = Carbon::now()->year;
-        $ay = Carbon::now()->month;
-        if (file_exists('storage/orderImage/' . $yil) == false) {
-            mkdir('storage/orderImage/' . $yil, 0777, true);
-        }
-        if (file_exists('storage/orderImage/' . $yil . '/' . $ay) == false) {
-            mkdir('storage/orderImage/' . $yil . '/' . $ay, 0777, true);
-        }
-
-        $image = $request->file('file');
-        if ($image) {
-            $image_one = uniqid() . '.' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-            $new_image_name = 'storage/orderImage/' . $yil . '/' . $ay . '/' . $image_one;
-            Image::make($image)->resize(800, 450)->fit(800, 450)->save($new_image_name,68,'jpeg');
-            OrderImages::insert([
-                "haberId" => $id,
-                "image" => $new_image_name,
-            ]);
-            return response()->json(['success' => $new_image_name]);
-        }
+   //     $yil = Carbon::now()->year;
+   //     $ay = Carbon::now()->month;
+   //     if (file_exists('storage/orderImage/' . $yil) == false) {
+   //         mkdir('storage/orderImage/' . $yil, 0777, true);
+   //     }
+   //     if (file_exists('storage/orderImage/' . $yil . '/' . $ay) == false) {
+   //         mkdir('storage/orderImage/' . $yil . '/' . $ay, 0777, true);
+   //     }
+   //
+   //     $image = $request->file('file');
+   //     if ($image) {
+   //         $image_one = uniqid() . '.' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+   //         $new_image_name = 'storage/orderImage/' . $yil . '/' . $ay . '/' . $image_one;
+   //         Image::make($image)->resize(800, 450)->fit(800, 450)->save($new_image_name,68,'jpeg');
+   //         OrderImages::insert([
+   //             "haberId" => $id,
+   //             "image" => $new_image_name,
+   //         ]);
+   //         return response()->json(['success' => $new_image_name]);
+   //     }
 
 
     }
@@ -457,7 +457,7 @@ class PostController extends Controller
 
         foreach ($images as $image) {
 
-            DB::table('order_images')->where('id', '=', $image)->delete();
+     //       DB::table('order_images')->where('id', '=', $image)->delete();
 
         }
         return Redirect()->route('all.orderImagesPage',$id);

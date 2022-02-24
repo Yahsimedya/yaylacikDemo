@@ -19,9 +19,9 @@ class CommentsController extends Controller
     public function ActiveComments(Request $request, $id)
     {
 
-        $update['status'] = $request->aktif;
 
-        Comments::where('id', $id)->update($update);
+
+
         if ($request->aktif == 1) {
             $notification = array(
                 'message' => 'Yorum Aktif',
@@ -38,7 +38,7 @@ class CommentsController extends Controller
 
     public function DeleteComments(Request $request, $id)
     {
-        Comments::find($id)->delete();
+
         $notification = array(
             'message' => 'Yorum Silindi',
             'alert-type' => 'warning'
