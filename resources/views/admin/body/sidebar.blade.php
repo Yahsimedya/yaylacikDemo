@@ -172,6 +172,11 @@ $photo=DB::table('users')->where('id','=',Auth::user()->id)->get();
 
 
                 <li class="nav-item">
+                    <a href="{{route('fixedpage.index')}}" class="nav-link">
+                        <i class="icon-stack2"></i>
+                        <span>Sabit Sayfalar</span>
+                    </a>
+                </li><li class="nav-item">
                     <a href="{{route('egazete.index')}}" class="nav-link">
                         <i class="icon-stack2"></i>
                         <span>E Gazete</span>
