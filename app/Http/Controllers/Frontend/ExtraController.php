@@ -561,12 +561,12 @@ class ExtraController extends Controller
 //        }
         $ucuncuSayfa = Cache::remember("ucuncuSayfa", Carbon::now()->addYear(), function () {
             if (Cache::has('ucuncuSayfa')) return Cache::has('ucuncuSayfa');
-            return Post::where('category_id', 1)->where('status', 1)->where('featured', '=', 1)->limit(10)->latest('created_at')->get();
+            return Post::where('status', 1)->where('featured', '=', 1)->limit(10)->latest('created_at')->get();
 
         });
         $ozel = Cache::remember("ozel", Carbon::now()->addYear(), function () {
             if (Cache::has('ozel')) return Cache::has('ozel');
-            return Post::where('category_id', 1)->where('status', 1)->where('featured', '=', 1)->limit(10)->latest('created_at')->get();
+            return Post::where('status', 1)->where('featured', '=', 1)->limit(10)->latest('created_at')->get();
 
         });
 
@@ -604,12 +604,12 @@ class ExtraController extends Controller
 
         $siyaset = Cache::remember("siyaset", Carbon::now()->addYear(), function () {
             if (Cache::has('siyaset')) return Cache::has('siyaset');
-            return Post::where('category_id', '=', 3)->where('status', 1)->where('featured', '=', 1)->limit(10)->latest('created_at')->get();
+            return Post::where('status', 1)->where('featured', '=', 1)->limit(10)->latest('created_at')->get();
         });
 
         $spor = Cache::remember("spor", Carbon::now()->addYear(), function () {
             if (Cache::has('spor')) return Cache::has('spor');
-            return Post::where('category_id', '=', 6)->where('status', 1)->limit(10)->latest('created_at')->get();
+            return Post::where('status', 1)->limit(10)->latest('created_at')->get();
         });
         $themeSetting = Cache::remember("themeSetting", Carbon::now()->addYear(), function () {
             if (Cache::has('themeSetting')) return Cache::has('themeSetting');
